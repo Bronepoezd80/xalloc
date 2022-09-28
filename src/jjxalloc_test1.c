@@ -12,7 +12,6 @@ int
 main(void)
 {
   printf("jjxmalloc() with 0 bytes\n");
-
   int* bytes = NULL;
   bytes = (int*)jjxmalloc(0);
 

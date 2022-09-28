@@ -31,8 +31,9 @@ message(STATUS "Project binary directory: ${PRJ_BINARY_DIR_}")
 
 add_executable(jjxalloc_test1_c)
 target_sources(jjxalloc_test1_c PRIVATE "${PRJ_SOURCE_DIR_}/jjxalloc_test1.c")
-target_include_directories(jjxalloc_test1_c PUBLIC "${PRJ_INCLUDE_DIR_}")
-set_target_properties(jjxalloc_test1_c PROPERTIES
+add_executable(jjxalloc_test2_c)
+target_sources(jjxalloc_test2_c PRIVATE "${PRJ_SOURCE_DIR_}/jjxalloc_test2.c")
+set_target_properties(jjxalloc_test1_c jjxalloc_test2_c PROPERTIES
     LINKER_LANGUAGE C
     C_STANDARD 11
     RUNTIME_OUTPUT_DIRECTORY ${PRJ_BINARY_DIR_}

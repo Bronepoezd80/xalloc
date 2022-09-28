@@ -11,34 +11,38 @@ extern "C"
 
   void* jjmalloc_or_exit(size_t nbytes_, const char* file_, size_t line_)
   {
-    void* x = NULL;
-    if (nbytes_ == 0 || (x = malloc(nbytes_)) == NULL) {
+    size_t* ptr = NULL;
+    ptr = (size_t*)malloc(sizeof(size_t) + nbytes_);
+    if (nbytes_ == 0 || ptr == NULL) {
       fprintf(stderr,
-              "%s: line %lu: malloc() of %zu bytes failed\n",
+              "%s: line %zu: malloc() of %zu bytes failed\n",
               file_,
               line_,
               nbytes_);
       exit(EXIT_FAILURE);
     }
-    return x;
+    *ptr = nbytes_;
+    return &ptr[1];
   }
 
-  void jjfree_or_exit(void* ptr_, const char* file_, size_t line_)
+  void jjfree(void* ptr_)
   {
-    if (ptr_ == NULL) {
-      fprintf(
-        stderr, "%s: line %lu: no memory to free with free()\n", file_, line_);
-      exit(EXIT_FAILURE);
-    }
-    free(ptr_);
+    free((size_t*)ptr_ - 1);
     ptr_ = NULL;
     return;
+  }
+
+  size_t jjallocated_size(void* ptr_)
+  {
+    return ((size_t*)ptr_)[-1];
   }
 
 #define jjxmalloc(NBYTES_)                                                     \
   jjmalloc_or_exit((size_t)(NBYTES_), (char*)__FILE__, (size_t)__LINE__)
 
-#define jjxfree(PTR_) jjfree_or_exit((PTR_), (char*)__FILE__, (size_t)__LINE__)
+#define jjxfree(PTR_) jjfree((PTR_))
+
+#define jjxallocated_size(PTR_) jjallocated_size((PTR_))
 
 #ifdef __cplusplus
 }
