@@ -14,9 +14,9 @@ int
 main(void)
 {
   while (1) {
-    std::cout << "jjxmalloc() with " << 1000000000 << " bytes" << std::endl;
-    int* bytes = (int*)jjxmalloc(1000000000);
-    std::cout << "jjxmalloc() allocated " << jjxallocated_size(bytes)
+    std::cout << "::jjxmalloc() with " << 1000000000 << " bytes" << std::endl;
+    int* bytes = (int*)::jjxmalloc(1000000000);
+    std::cout << "::jjxmalloc() allocated " << ::jjxallocated_size(bytes)
               << " bytes" << std::endl;
   }
 
