@@ -33,7 +33,9 @@ add_executable(jjxalloc_test1_c)
 target_sources(jjxalloc_test1_c PRIVATE "${PRJ_SOURCE_DIR_}/jjxalloc_test1.c")
 add_executable(jjxalloc_test2_c)
 target_sources(jjxalloc_test2_c PRIVATE "${PRJ_SOURCE_DIR_}/jjxalloc_test2.c")
-set_target_properties(jjxalloc_test1_c jjxalloc_test2_c PROPERTIES
+add_executable(jjxalloc_test3_c)
+target_sources(jjxalloc_test3_c PRIVATE "${PRJ_SOURCE_DIR_}/jjxalloc_test3.c")
+set_target_properties(jjxalloc_test1_c jjxalloc_test2_c jjxalloc_test3_c PROPERTIES
     LINKER_LANGUAGE C
     C_STANDARD 11
     RUNTIME_OUTPUT_DIRECTORY ${PRJ_BINARY_DIR_}
@@ -42,8 +44,11 @@ set_target_properties(jjxalloc_test1_c jjxalloc_test2_c PROPERTIES
 
 add_executable(jjxalloc_test1_cxx)
 target_sources(jjxalloc_test1_cxx PRIVATE "${PRJ_SOURCE_DIR_}/jjxalloc_test1.cxx")
-target_include_directories(jjxalloc_test1_cxx PUBLIC "${PRJ_INCLUDE_DIR_}")
-set_target_properties(jjxalloc_test1_cxx PROPERTIES
+add_executable(jjxalloc_test2_cxx)
+target_sources(jjxalloc_test2_cxx PRIVATE "${PRJ_SOURCE_DIR_}/jjxalloc_test2.cxx")
+add_executable(jjxalloc_test3_cxx)
+target_sources(jjxalloc_test3_cxx PRIVATE "${PRJ_SOURCE_DIR_}/jjxalloc_test3.cxx")
+set_target_properties(jjxalloc_test1_cxx jjxalloc_test2_cxx jjxalloc_test3_cxx PROPERTIES
     LINKER_LANGUAGE CXX
     CXX_STANDARD 17
     RUNTIME_OUTPUT_DIRECTORY ${PRJ_BINARY_DIR_}
