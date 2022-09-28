@@ -28,12 +28,16 @@ extern "C"
   void jjfree(void* ptr_)
   {
     free((size_t*)ptr_ - 1);
+    ((size_t*)ptr_)[-1] = 0;
     ptr_ = NULL;
     return;
   }
 
   size_t jjallocated_size(void* ptr_)
   {
+    if (ptr_ == NULL) {
+      return 0;
+    }
     return ((size_t*)ptr_)[-1];
   }
 
