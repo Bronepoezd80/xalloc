@@ -14,7 +14,6 @@ main(void)
   while (1) {
     printf("jjxmalloc() with %d bytes\n", 1000000000);
     int* bytes = (int*)jjxmalloc(1000000000);
-    printf("jjxmalloc() allocated %zu bytes\n", jjxallocated_size(bytes));
   }
 
   return EXIT_SUCCESS;

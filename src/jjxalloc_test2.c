@@ -13,16 +13,9 @@ main(void)
 {
   printf("jjxmalloc() with %zu bytes\n", 1000 * sizeof(int));
   int* bytes = (int*)jjxmalloc(1000 * sizeof(int));
-  printf("jjxmalloc() allocated %zu bytes\n", jjxallocated_size(bytes));
-  jjxfree(bytes);
-  printf("jjxmalloc() allocated %zu bytes\n", jjxallocated_size(bytes));
+  free(bytes);
   bytes = (int*)jjxmalloc(100 * sizeof(int));
-  printf("jjxmalloc() allocated %zu bytes\n", jjxallocated_size(bytes));
-  jjxfree(bytes);
-  printf("jjxmalloc() allocated %zu bytes\n", jjxallocated_size(bytes));
-
-  int* zero = NULL;
-  printf("jjxmalloc() allocated %zu bytes\n", jjxallocated_size(zero));
+  free(bytes);
 
   return EXIT_SUCCESS;
 }
