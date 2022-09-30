@@ -10,12 +10,10 @@
 
 #include <xalloc.h>
 
-int
-main(void)
-{
+int main(void) {
   std::cout << "::xmalloc() with 0 bytes" << std::endl;
-  int* bytes = nullptr;
-  bytes = (int*)::xmalloc(0);
+  int *bytes = nullptr;
+  bytes = (int *)::xmalloc(0);
 
   return EXIT_SUCCESS;
 }

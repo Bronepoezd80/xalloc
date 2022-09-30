@@ -8,9 +8,7 @@
 
 #include <xalloc.h>
 
-int
-main(void)
-{
+int main(void) {
   printf("xmalloc() with 0 bytes\n");
   int* bytes = NULL;
   bytes = (int*)xmalloc(0);

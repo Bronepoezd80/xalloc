@@ -8,7 +8,7 @@ cmake_minimum_required(VERSION ${__MINIMUM_VERSION} FATAL_ERROR)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-project(JJXAlloc
+project(XAlloc
     VERSION
         1.0.0
     DESCRIPTION
@@ -29,28 +29,33 @@ message(STATUS "Project include directory: ${PRJ_INCLUDE_DIR_}")
 message(STATUS "Project source directory: ${PRJ_SOURCE_DIR_}")
 message(STATUS "Project binary directory: ${PRJ_BINARY_DIR_}")
 
-add_executable(xalloc_test1_c)
-target_sources(xalloc_test1_c PRIVATE "${PRJ_SOURCE_DIR_}/xalloc_test1.c")
-add_executable(xalloc_test2_c)
-target_sources(xalloc_test2_c PRIVATE "${PRJ_SOURCE_DIR_}/xalloc_test2.c")
-add_executable(xalloc_test3_c)
-target_sources(xalloc_test3_c PRIVATE "${PRJ_SOURCE_DIR_}/xalloc_test3.c")
-set_target_properties(xalloc_test1_c xalloc_test2_c xalloc_test3_c PROPERTIES
-    LINKER_LANGUAGE C
-    C_STANDARD 11
-    RUNTIME_OUTPUT_DIRECTORY ${PRJ_BINARY_DIR_}
-    INCLUDE_DIRECTORIES "${PRJ_INCLUDE_DIR_}"
-)
+macro(add_program TARGET_ FILE_ LANGUAGE_)
+    add_executable(${TARGET_})
+    target_sources(${TARGET_} PUBLIC "${PRJ_SOURCE_DIR_}/${FILE_}.${LANGUAGE_}")
+    target_include_directories(${TARGET_} SYSTEM BEFORE PUBLIC "${PRJ_INCLUDE_DIR_}")
+    if(${LANGUAGE_} STREQUAL c)
+        set_target_properties(${TARGET_} PROPERTIES
+            LINKER_LANGUAGE C
+            C_STANDARD 11
+            RUNTIME_OUTPUT_DIRECTORY ${PRJ_BINARY_DIR_}
+            INCLUDE_DIRECTORIES "${PRJ_INCLUDE_DIR_}"
+        )
+    elseif(${LANGUAGE_} STREQUAL cxx)
+        set_target_properties(${TARGET_} PROPERTIES
+            LINKER_LANGUAGE CXX
+            CXX_STANDARD 17
+            RUNTIME_OUTPUT_DIRECTORY ${PRJ_BINARY_DIR_}
+            INCLUDE_DIRECTORIES "${PRJ_INCLUDE_DIR_}"
+        )
+    endif()
+endmacro()
 
-add_executable(xalloc_test1_cxx)
-target_sources(xalloc_test1_cxx PRIVATE "${PRJ_SOURCE_DIR_}/xalloc_test1.cxx")
-add_executable(xalloc_test2_cxx)
-target_sources(xalloc_test2_cxx PRIVATE "${PRJ_SOURCE_DIR_}/xalloc_test2.cxx")
-add_executable(xalloc_test3_cxx)
-target_sources(xalloc_test3_cxx PRIVATE "${PRJ_SOURCE_DIR_}/xalloc_test3.cxx")
-set_target_properties(xalloc_test1_cxx xalloc_test2_cxx xalloc_test3_cxx PROPERTIES
-    LINKER_LANGUAGE CXX
-    CXX_STANDARD 17
-    RUNTIME_OUTPUT_DIRECTORY ${PRJ_BINARY_DIR_}
-    INCLUDE_DIRECTORIES "${PRJ_INCLUDE_DIR_}"
-)
+set(GENERIC_TARGET_ xalloc_test)
+
+add_program(${GENERIC_TARGET_}1_c ${GENERIC_TARGET_}1 c)
+add_program(${GENERIC_TARGET_}2_c ${GENERIC_TARGET_}2 c)
+add_program(${GENERIC_TARGET_}3_c ${GENERIC_TARGET_}3 c)
+
+add_program(${GENERIC_TARGET_}1_cxx ${GENERIC_TARGET_}1 cxx)
+add_program(${GENERIC_TARGET_}2_cxx ${GENERIC_TARGET_}2 cxx)
+add_program(${GENERIC_TARGET_}3_cxx ${GENERIC_TARGET_}3 cxx)

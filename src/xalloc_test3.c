@@ -8,12 +8,10 @@
 
 #include <xalloc.h>
 
-int
-main(void)
-{
+int main(void) {
   while (1) {
     printf("xmalloc() with %d bytes\n", 1000000000);
-    int* bytes = (int*)xmalloc(1000000000);
+    int *bytes = (int *)xmalloc(1000000000);
   }
 
   return EXIT_SUCCESS;
