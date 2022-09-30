@@ -20,10 +20,9 @@ extern "C"
   jjcalloc_or_exit(                                                            \
     (size_t)(ELEMENTS_), (size_t)(SIZE_), (char*)__FILE__, (size_t)__LINE__)
 
-  static void
+  // static void
 
-    void*
-    jjmalloc_or_exit(size_t size_, const char* file_, size_t line_)
+  void* jjmalloc_or_exit(size_t size_, const char* file_, size_t line_)
   {
     void* alloc = NULL;
     alloc = malloc(size_);
