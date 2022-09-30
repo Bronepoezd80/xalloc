@@ -8,14 +8,14 @@
 
 #include <iostream>
 
-#include <jjxalloc.h>
+#include <xalloc.h>
 
 int
 main(void)
 {
   while (1) {
-    std::cout << "::jjxmalloc() with " << 1000000000 << " bytes" << std::endl;
-    int* bytes = (int*)::jjxmalloc(1000000000);
+    std::cout << "::xmalloc() with " << 1000000000 << " bytes" << std::endl;
+    int* bytes = (int*)::xmalloc(1000000000);
   }
 
   return EXIT_SUCCESS;

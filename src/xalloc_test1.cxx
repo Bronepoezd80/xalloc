@@ -8,14 +8,14 @@
 
 #include <iostream>
 
-#include <jjxalloc.h>
+#include <xalloc.h>
 
 int
 main(void)
 {
-  std::cout << "::jjxmalloc() with 0 bytes" << std::endl;
+  std::cout << "::xmalloc() with 0 bytes" << std::endl;
   int* bytes = nullptr;
-  bytes = (int*)::jjxmalloc(0);
+  bytes = (int*)::xmalloc(0);
 
   return EXIT_SUCCESS;
 }

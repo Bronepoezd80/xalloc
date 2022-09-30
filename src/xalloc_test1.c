@@ -6,15 +6,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include <jjxalloc.h>
+#include <xalloc.h>
 
 int
 main(void)
 {
-  while (1) {
-    printf("jjxmalloc() with %d bytes\n", 1000000000);
-    int* bytes = (int*)jjxmalloc(1000000000);
-  }
+  printf("xmalloc() with 0 bytes\n");
+  int* bytes = NULL;
+  bytes = (int*)xmalloc(0);
 
   return EXIT_SUCCESS;
 }

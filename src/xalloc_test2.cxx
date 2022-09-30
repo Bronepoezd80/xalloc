@@ -8,16 +8,16 @@
 
 #include <iostream>
 
-#include <jjxalloc.h>
+#include <xalloc.h>
 
 int
 main(void)
 {
-  std::cout << "::jjxmalloc() with " << (1000 * sizeof(int)) << " bytes"
+  std::cout << "::xmalloc() with " << (1000 * sizeof(int)) << " bytes"
             << std::endl;
-  int* bytes = (int*)::jjxmalloc(1000 * sizeof(int));
+  int* bytes = (int*)::xmalloc(1000 * sizeof(int));
   ::free(bytes);
-  bytes = (int*)::jjxmalloc(100 * sizeof(int));
+  bytes = (int*)::xmalloc(100 * sizeof(int));
   ::free(bytes);
 
   return EXIT_SUCCESS;

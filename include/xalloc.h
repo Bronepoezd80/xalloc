@@ -9,20 +9,19 @@ extern "C"
 #include <stdio.h>
 #include <stdlib.h>
 
-#define jjxmalloc(SIZE_)                                                       \
-  jjmalloc_or_exit((size_t)(SIZE_), (char*)__FILE__, (size_t)__LINE__)
+#define xmalloc(SIZE_)                                                         \
+  malloc_or_exit((size_t)(SIZE_), (char*)__FILE__, (size_t)__LINE__)
 
-#define jjxrealloc(POINTER_, SIZE_)                                            \
-  jjrealloc_or_exit(                                                           \
-    POINTER_, (size_t)(SIZE_), (char*)__FILE__, (size_t)__LINE__)
+#define xrealloc(POINTER_, SIZE_)                                              \
+  realloc_or_exit(POINTER_, (size_t)(SIZE_), (char*)__FILE__, (size_t)__LINE__)
 
-#define jjxcalloc(POINTER_, SIZE_)                                             \
-  jjcalloc_or_exit(                                                            \
+#define xcalloc(POINTER_, SIZE_)                                               \
+  calloc_or_exit(                                                              \
     (size_t)(ELEMENTS_), (size_t)(SIZE_), (char*)__FILE__, (size_t)__LINE__)
 
   // static void
 
-  void* jjmalloc_or_exit(size_t size_, const char* file_, size_t line_)
+  void* malloc_or_exit(size_t size_, const char* file_, size_t line_)
   {
     void* alloc = NULL;
     alloc = malloc(size_);
@@ -37,10 +36,10 @@ extern "C"
     return alloc;
   }
 
-  void* jjcalloc_or_exit(size_t elements_,
-                         size_t size_,
-                         const char* file_,
-                         size_t line_)
+  void* calloc_or_exit(size_t elements_,
+                       size_t size_,
+                       const char* file_,
+                       size_t line_)
   {
     void* alloc = NULL;
     if (elements_ == 0 || size_ == 0) {
@@ -63,14 +62,14 @@ extern "C"
     return alloc;
   }
 
-  void* jjrealloc_or_exit(void* pointer_,
-                          size_t size_,
-                          const char* file_,
-                          size_t line_)
+  void* realloc_or_exit(void* pointer_,
+                        size_t size_,
+                        const char* file_,
+                        size_t line_)
   {
     void* alloc = NULL;
     if (pointer_ == NULL) {
-      return jjxmalloc(size_);
+      return malloc_or_exit(size_, file_, line_);
     }
     alloc = realloc(pointer_, size_);
     if (size_ == 0 || alloc == NULL) {
