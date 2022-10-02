@@ -18,12 +18,12 @@ extern "C" {
   calloc_or_exit((size_t)(ELEMS_), (size_t)(SIZE_), (char*)__FILE__, \
                  (size_t)__LINE__)
 
-#define xalloc_die(FUNC_, FILE_, LINE_, SIZE_)                               \
-  do {                                                                       \
-    fprintf(stderr, "%s: line %zu: %s of %zu bytes failed!\n", FILE_, LINE_, \
-            FUNC_, SIZE_);                                                   \
-    exit(EXIT_FAILURE);                                                      \
-  } while (0)
+static void xalloc_die(const char* func_, const char* file_, size_t line_,
+                       size_t size_) {
+  fprintf(stderr, "%s: line %zu: %s of %zu bytes failed!\n", file_, line_,
+          func_, size_);
+  exit(EXIT_FAILURE);
+}
 
 void* malloc_or_exit(size_t size_, const char* file_, size_t line_) {
   void* alloc = NULL;
