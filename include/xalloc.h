@@ -22,7 +22,7 @@ static void xalloc_die(const char* func_, const char* file_, size_t line_,
                        size_t size_) {
   fprintf(stderr, "%s: line %zu: %s of %zu bytes failed!\n", file_, line_,
           func_, size_);
-  exit(EXIT_FAILURE);
+  abort();
 }
 
 void* malloc_or_exit(size_t size_, const char* file_, size_t line_) {
