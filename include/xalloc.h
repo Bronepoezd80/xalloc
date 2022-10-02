@@ -61,7 +61,7 @@ void* calloc_or_exit(size_t nelems_, size_t size_, const char* file_,
 void* realloc_or_exit(void* ptr_, size_t size_, const char* file_,
                       size_t line_) {
   if (size_ == 0) {
-    xalloc_die("malloc()", file_, line_, size_);
+    xalloc_die("realloc()", file_, line_, size_);
   }
   if (ptr_ == NULL) {
     return malloc_or_exit(size_, file_, line_);
