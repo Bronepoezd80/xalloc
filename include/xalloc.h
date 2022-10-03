@@ -3,8 +3,8 @@
  * jakob.janzen80@gmail.com
  * 2022-10-03
  */
-#ifndef JJXALLOC_H__
-#define JJXALLOC_H__
+#ifndef SECURE_ALLOCATION_XALLOC_H__
+#define SECURE_ALLOCATION_XALLOC_H__
 
 #ifdef __cplusplus
 extern "C" {
@@ -34,4 +34,4 @@ void* realloc_or_exit(void*, size_t, const char*, size_t);
 }
 #endif
 
-#endif /* JJXALLOC_H__ */
+#endif /* SECURE_ALLOCATION_XALLOC_H__ */
