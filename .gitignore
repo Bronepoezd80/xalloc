@@ -1,4 +1,5 @@
 bin/**
+lib/**
 build/**
 CMakeLists.txt.user
 CMakeCache.txt
