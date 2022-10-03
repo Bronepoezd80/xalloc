@@ -14,6 +14,7 @@ readonly INCLUDE_DIR="${PROJECT_DIR}/include"
 readonly SOURCE_DIR="${PROJECT_DIR}/src"
 readonly LIBRARY_DIR="${PROJECT_DIR}/lib"
 readonly BINARY_DIR="${PROJECT_DIR}/bin"
+readonly INSTALL_MANIFEST="${BUILD_DIR}/install_manifest.txt"
 
 function usage {
     echo \
@@ -25,6 +26,7 @@ function usage {
             1: Build with Make from the build directory.
             2: Rebuild with Make, clean first everything.
             3: Clean everything with Make.
+    -i      Install to /usr/local .
     -h      Show this help and exit.
 '
     exit
@@ -39,10 +41,15 @@ FLAG_CONFIGURE=${CNF_NONE}
 readonly BLD_NONE=0
 readonly BLD_DO=1
 readonly BLD_REDO=2
-readonly BLD_CLEAN=3
+readonly BLD_UNDO=3
 FLAG_BUILD=0
+# Make: 0 - none, 1 - install, 2 - uninstall
+readonly INS_NONE=0
+readonly INS_DO=1
+readonly INS_UNDO=2
+FLAG_INSTALL=0
 
-while getopts "c:b:h" opt
+while getopts "c:b:i:h" opt
 do
     case ${opt} in
     c)
@@ -50,6 +57,9 @@ do
         ;;
     b)
         FLAG_BUILD=${OPTARG}
+        ;;
+    i)
+        FLAG_INSTALL=${OPTARG}
         ;;
     h)
         usage
@@ -87,9 +97,32 @@ ${BLD_REDO})
     make clean
     make
     ;;
-${BLD_CLEAN})
+${BLD_UNDO})
     cd ${BUILD_DIR}
     make clean
+    ;;
+esac
+
+case ${FLAG_INSTALL} in
+${INS_DO})
+    cd ${BUILD_DIR}
+    sudo make install
+    ;;
+${INS_UNDO})
+    cd ${BUILD_DIR}
+    for __file in $( cat ${INSTALL_MANIFEST} | xargs )
+    do
+        if [[ -n "${__file}" ]]
+        then
+            if [[ -f ${__file} ]]
+            then
+                sudo rm -v ${__file}
+            elif [[ -L ${__file} ]]
+            then
+                sudo rm -v ${__file}
+            fi
+        fi
+    done
     ;;
 esac
 
