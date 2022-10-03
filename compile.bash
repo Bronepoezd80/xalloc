@@ -14,6 +14,7 @@ readonly INCLUDE_DIR="${PROJECT_DIR}/include"
 readonly SOURCE_DIR="${PROJECT_DIR}/src"
 readonly LIBRARY_DIR="${PROJECT_DIR}/lib"
 readonly BINARY_DIR="${PROJECT_DIR}/bin"
+readonly COMPILE_COMMANDS="${BUILD_DIR}/compile_commands.json"
 readonly INSTALL_MANIFEST="${BUILD_DIR}/install_manifest.txt"
 
 function usage {
@@ -78,6 +79,7 @@ case ${FLAG_CONFIGURE} in
 ${CNF_DO})
     cd ${BUILD_DIR}
     cmake ..
+    ln -sfrv ${COMPILE_COMMANDS} ..
     ;;
 ${CNF_REDO})
     cd ${BUILD_DIR}
@@ -86,6 +88,7 @@ ${CNF_REDO})
         rm -rv ${BUILD_DIR}/*
     fi
     cmake ..
+    ln -sfrv ${COMPILE_COMMANDS} ..
     ;;
 esac
 
