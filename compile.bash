@@ -26,7 +26,9 @@ function usage {
             1: Build with Make from the build directory.
             2: Rebuild with Make, clean first everything.
             3: Clean everything with Make.
-    -i      Install to /usr/local .
+    -i      0: Do nothing.
+            1: Install with Make to /usr/local.
+            2: Uninstall from system.
     -h      Show this help and exit.
 '
     exit
